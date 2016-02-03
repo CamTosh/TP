@@ -4,17 +4,16 @@
 #include <ctype.h>
 #include "fichier.c"
 
-typedef struct produit
+typedef struct
 {
 
 	int num_produit;
 	char lib_produit;
 	int prix_produit;
-} unProduit;
 
-struct produit tabProduit[100], produit;
+} produit;
+produit unProduit;
 
-struct tabProduit get_value(int);
 
 void echange(unProduit tabProduit[], int i){
 
@@ -35,7 +34,7 @@ void echange(unProduit tabProduit[], int i){
 	tabProduit[i].prix_produit = prix;
 }
 
-int triFichier(unProduit tabProduit[], int sens) {
+int triFichier(unProduit *tabProduit[], int sens) {
 
     int permut = 1;
     int i;
@@ -86,7 +85,7 @@ int main() {
 	scanf("%d", &sens);
 
 	triFichier(tabProduit, sens);
-
+	/*
 	while(getc(ficheProduit) != EOF){
 		tabProduit[i].num_produit = unProduit.num_produit;
 		tabProduit[i].lib_produit = unProduit.lib_produit;
@@ -110,5 +109,5 @@ int main() {
 		*unProduit.lib_produit = tabProduit[i].lib_produit;
 		unProduit.prix_produit = tabProduit[i].prix_produit;
 	}
+	*/
 }
-
