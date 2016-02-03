@@ -15,7 +15,7 @@ typedef struct
 produit unProduit;
 
 
-void echange(unProduit tabProduit[], int i){
+void echange(produit *tabProduit, int i){
 
 	int num;
 	char lib;
@@ -34,7 +34,7 @@ void echange(unProduit tabProduit[], int i){
 	tabProduit[i].prix_produit = prix;
 }
 
-int triFichier(unProduit *tabProduit[], int sens) {
+int triFichier(produit *tabProduit, int sens) {
 
     int permut = 1;
     int i;
@@ -47,13 +47,13 @@ int triFichier(unProduit *tabProduit[], int sens) {
 		{
 			if(sens == 0){
 				if (tabProduit[i].num_produit > tabProduit[i + 1].num_produit){
-					echange(tabProduit[i], i);
+					echange(tabProduit, i);
 					permut = 1;
 				}
 			}
 			if(sens == 1){
 				if (tabProduit[i].num_produit < tabProduit[i + 1].num_produit){
-					echange(tabProduit[i], i);
+					echange(tabProduit, i);
 					permut = 1;
 				}
 			}
@@ -69,7 +69,7 @@ int main() {
 
 	int sens;
     int i;
-    unProduit tabProduit[100];
+    produit tabProduit[100];
 
 	FILE* ficheProduit;
 	ficheProduit = fopen("fichier", "w+");
@@ -85,29 +85,36 @@ int main() {
 	scanf("%d", &sens);
 
 	triFichier(tabProduit, sens);
-	/*
-	while(getc(ficheProduit) != EOF){
+
+	while(!feof(ficheProduit)){
 		tabProduit[i].num_produit = unProduit.num_produit;
 		tabProduit[i].lib_produit = unProduit.lib_produit;
 		tabProduit[i].prix_produit = unProduit.prix_produit;
+
+		fread(&unProduit, sizeof(produit), 1, ficheProduit);
 		i++;
 	}
 	fclose(ficheProduit);
 
-	tabProduit = triFichier(tabProduit, sens);
+	triFichier(tabProduit, sens);
 	remove(ficheProduit);
 
 	ficheProduit = fopen("fichier", "w+");
 
-	for (i = 0; i < 100; ++i)
+    int j = i;
+
+	for (i = 0; i < j; i++)
 	{
 		printf("num produit %d \n", tabProduit[i].num_produit);
 		printf("lib produit %s\n", tabProduit[i].lib_produit);
 		printf("prix produit %s\n", tabProduit[i].prix_produit);
 
 		unProduit.num_produit = tabProduit[i].num_produit;
-		*unProduit.lib_produit = tabProduit[i].lib_produit;
+		unProduit.lib_produit = tabProduit[i].lib_produit;
+		strcpy(unProduit.lib_produit, tabProduit[i].lib_produit);
 		unProduit.prix_produit = tabProduit[i].prix_produit;
+
+		fwrite(&unProduit, sizeof(unProduit), 1, ficheProduit);
 	}
-	*/
+	fclose(ficheProduit);
 }
