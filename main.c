@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
+#include "fichier.c"
 
 typedef struct produit
 {
@@ -42,7 +44,7 @@ int triFichier(unProduit tabProduit[], int sens) {
 
 	while(permut == 1){
 		permut = 0;
-		for (i = 0; i < 99; i++)
+		for (i = 1; i <= 99; i++)
 		{
 			if(sens == 0){
 				if (tabProduit[i].num_produit > tabProduit[i + 1].num_produit){
@@ -62,6 +64,9 @@ return tabProduit;
 }
 
 int main() {
+
+	f1(); // produits.myd
+	f2(); // produits.myi
 
 	int sens;
     int i;
