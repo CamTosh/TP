@@ -41,6 +41,7 @@ produit unProduit;
     }
 
     i = 0;
+    fread(&unProduit,sizeof(produit), 1,ficheProduit);
 
     while(i <= combien - 1){
         printf("\n \t Affichage du tour %d \n", i);
