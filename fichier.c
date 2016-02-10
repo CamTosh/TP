@@ -19,7 +19,7 @@ produit unProduit;
 */
     int r;
     int i = 0;
-    FILE* ficheProduit = fopen( "Produit", "w+" );
+    FILE* ficheProduit = fopen( "Produit", "w" );
 
     int combien;
     printf("Combien de produit ? ");
@@ -44,7 +44,7 @@ produit unProduit;
         r = 1;
         printf("\n Le fichier est ecrit.\n");
     }
-    /*
+
     i = 0;
 
     while(i <= combien - 1){
@@ -54,7 +54,7 @@ produit unProduit;
         printf("Prix : %d\n", *unProduit.prix);
         i++;
     }
-    */
+
 
     fclose(ficheProduit);
     /*
