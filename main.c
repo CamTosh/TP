@@ -72,7 +72,7 @@ int main()
     int j;
     int type;
 
-    fichProduit = fopen("propro","r");
+    fichProduit = fopen("Produit","r");
 
     for (i = 0; i < 100; i++)
     {
@@ -99,7 +99,7 @@ int main()
     fclose(fichProduit);
     triFichier(tabProduit, sens,j);
     remove(fichProduit);
-    fichProduit = fopen("propro","w");
+    fichProduit = fopen("Produit","w");
 
     for (i=0;i<j;i++)
     {
