@@ -3,9 +3,9 @@
 #include <string.h>
 typedef struct
 {
-    int num_produit[5];
-    char lib_produit[5];
-    int prix[5];
+    int num_produit[10];
+    char lib_produit[40];
+    int prix[10];
 
 } produit;
 
@@ -28,32 +28,34 @@ produit unProduit;
     while(i <= combien - 1){
         printf("\n \t Tour %d", i);
         printf("\nNum : ");
-        scanf("%d", &unProduit.num_produit);
+        scanf("%d", unProduit.num_produit);
 
         printf("Lib : ");
         scanf("%s", unProduit.lib_produit);
 
         printf("Prix : ");
-        scanf("%d", &unProduit.prix);
+        scanf("%d", unProduit.prix);
 
         fwrite(&unProduit, sizeof(produit), 1, ficheProduit);
         i++;
     }
 
-    i = 0;
-    fread(&unProduit,sizeof(produit), 1,ficheProduit);
-
-    while(i <= combien - 1){
-        printf("\n \t Affichage du tour %d \n", i);
-        printf("Num : %d\n", unProduit.num_produit);
-        printf("Lib : %s\n", unProduit.lib_produit);
-        printf("Prix : %d\n", unProduit.num_produit);
-        i++;
-    }
     if (ficheProduit != 0) {
         r = 1;
         printf("\n Le fichier est ecrit.\n");
     }
+    /*
+    i = 0;
+
+    while(i <= combien - 1){
+        printf("\n \t Affichage du tour %d \n", i);
+        printf("Num : %d\n", *unProduit.num_produit);
+        printf("Lib : %s\n", unProduit.lib_produit);
+        printf("Prix : %d\n", *unProduit.prix);
+        i++;
+    }
+    */
+
     fclose(ficheProduit);
     /*
     int *numProduit[] = {5, 10, 12, 6, 7, 8};
