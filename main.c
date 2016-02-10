@@ -1,11 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 typedef struct
     {
         int num_produit;
         char lib_produit[30];
-        int prix_produit;
+        float prix_produit;
     }produit;
     produit unProduit;
 
@@ -72,7 +73,7 @@ int main()
     int j;
     int type;
 
-    fichProduit = fopen("Produit","r");
+    fichProduit = fopen("propro","r");
 
     for (i = 0; i < 100; i++)
     {
@@ -84,7 +85,7 @@ int main()
     printf("Tri Croissant(1) ou décroissant(2) ? : ");
     scanf("%d", &sens);
     fread(&unProduit,sizeof(produit),1,fichProduit);
-    i=0;
+    i = 0;
 
     while(!feof(fichProduit))
     {
@@ -97,13 +98,14 @@ int main()
     }
         j = i;
     fclose(fichProduit);
+
     triFichier(tabProduit, sens,j);
-    remove(fichProduit);
-    fichProduit = fopen("Produit","w");
+    remove("propro");
+    fichProduit = fopen("propro","w");
 
     for (i=0;i<j;i++)
     {
-        printf("num_produit : %d \n lib_produit : %s \n prix : %d\n\n",tabProduit[i].num_produit, tabProduit[i].lib_produit, tabProduit[i].prix_produit);
+        printf("num_produit : %d \n lib_produit : %s \n prix : %f\n\n",tabProduit[i].num_produit, tabProduit[i].lib_produit, tabProduit[i].prix_produit);
         unProduit.num_produit = tabProduit[i].num_produit;
         strcpy(unProduit.lib_produit , tabProduit[i].lib_produit);
         unProduit.prix_produit = tabProduit[i].prix_produit;
