@@ -38,9 +38,9 @@ void triFichier(produit *tabProduit, int sens, int j)
     while (permut ==1)
     {
         permut = 0;
-        for(i =0; i<j-1;i++)
+        for(i = 0; i < j -1; i++)
         {
-            if(sens==1)
+            if(sens == 0)
             {
                 if(tabProduit[i].num_produit > tabProduit[i+1].num_produit)
                 {
@@ -49,7 +49,7 @@ void triFichier(produit *tabProduit, int sens, int j)
                     permut = 1;
                 }
             }
-            else if (sens == 2)
+            else if (sens == 1)
             {
                 if(tabProduit[i].num_produit < tabProduit[i+1].num_produit)
                 {
@@ -63,53 +63,62 @@ void triFichier(produit *tabProduit, int sens, int j)
 
 int main()
 {
-    system("mode con codepage select=1252"); // acceptation des accents
-    system("cls"); // vidage de la console
+    system("mode con codepage select=1252");
+    system("cls");
 
-    FILE*fichProduit;
+    FILE*ficheProduit;
     produit tabProduit[100];
+
     int i;
     int sens = 1;
     int j;
     int type;
 
-    fichProduit = fopen("propro","r");
+    ficheProduit = fopen("Produit","r");
 
     for (i = 0; i < 100; i++)
     {
         tabProduit[i].num_produit = 0;
-        strcpy(tabProduit[i].lib_produit, "");
+        strcpy(tabProduit[i].lib_produit, "\0");
         tabProduit[i].prix_produit = 0;
     }
 
-    printf("Tri Croissant(1) ou décroissant(2) ? : ");
+    printf("Tri croissant 0 ");
+    printf("Tri décroissant 1 ");
     scanf("%d", &sens);
-    fread(&unProduit,sizeof(produit),1,fichProduit);
+
+    fread(&unProduit,sizeof(produit),1,ficheProduit);
+
     i = 0;
 
-    while(!feof(fichProduit))
+    while(!feof(ficheProduit))
     {
         tabProduit[i].num_produit = unProduit.num_produit;
         strcpy(tabProduit[i].lib_produit, unProduit.lib_produit);
         tabProduit[i].prix_produit = unProduit.prix_produit;
         i++;
 
-        fread(&unProduit,sizeof(produit),1,fichProduit);
+        fread(&unProduit,sizeof(produit),1,ficheProduit);
     }
-        j = i;
-    fclose(fichProduit);
+    j = i;
+    fclose(ficheProduit);
 
     triFichier(tabProduit, sens,j);
-    remove("propro");
-    fichProduit = fopen("propro","w");
 
-    for (i=0;i<j;i++)
+    remove("Produit");
+    ficheProduit = fopen("Produit","w");
+
+    for (i = 0; i < j; i++)
     {
-        printf("num_produit : %d \n lib_produit : %s \n prix : %f\n\n",tabProduit[i].num_produit, tabProduit[i].lib_produit, tabProduit[i].prix_produit);
+        printf("num_produit : %d \n", tabProduit[i].num_produit);
+        printf("lib_produit : %s \n ", tabProduit[i].lib_produit);
+        printf("prix : %f\n\n", tabProduit[i].prix_produit);
+
         unProduit.num_produit = tabProduit[i].num_produit;
         strcpy(unProduit.lib_produit , tabProduit[i].lib_produit);
         unProduit.prix_produit = tabProduit[i].prix_produit;
-        fwrite(&unProduit,sizeof(unProduit),1, fichProduit);
+
+        fwrite(&unProduit, sizeof(unProduit), 1, ficheProduit);
     }
-    fclose(fichProduit);
+    fclose(ficheProduit);
 }
