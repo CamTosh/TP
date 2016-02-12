@@ -3,13 +3,13 @@
 #include <string.h>
 typedef struct
 {
-    int num_produit[10];
-    char lib_produit[40];
-    int prix[10];
+    int num_produit;
+    char lib_produit[30];
+    float prix_produit;
 
 } produit;
 
-int main(int argc, char const *argv[]){
+int main(){
 produit unProduit;
 
 /*
@@ -21,20 +21,30 @@ produit unProduit;
     int i = 0;
     FILE* ficheProduit = fopen( "Produit", "w" );
 
+    produit tabProduit[100];
+
     int combien;
     printf("Combien de produit ? ");
     scanf("%d", &combien);
 
+    for (i = 0; i < 100; i++)
+    {
+        tabProduit[i].num_produit = 0;
+        strcpy(tabProduit[i].lib_produit, "\0");
+        tabProduit[i].prix_produit = 0;
+    }
+    i = 0;
     while(i <= combien - 1){
+
         printf("\n \t Tour %d", i);
         printf("\nNum : ");
-        scanf("%d", unProduit.num_produit);
+        scanf("%d", &unProduit.num_produit);
 
         printf("Lib : ");
         scanf("%s", unProduit.lib_produit);
 
         printf("Prix : ");
-        scanf("%d", unProduit.prix);
+        scanf("%f", &unProduit.prix_produit);
 
         fwrite(&unProduit, sizeof(produit), 1, ficheProduit);
         i++;
@@ -47,11 +57,18 @@ produit unProduit;
 
     i = 0;
 
+    fclose(ficheProduit);
+    ficheProduit = fopen("Produit", "r");
+
+
     while(i <= combien - 1){
-        printf("\n \t Affichage du tour %d \n", i);
-        printf("Num : %d\n", *unProduit.num_produit);
+        fread(&unProduit, sizeof(produit), 1, ficheProduit);
+
+        printf("\n \t Affichage du tour %d \n", i + 1);
+        printf("Num : %d\n", unProduit.num_produit);
         printf("Lib : %s\n", unProduit.lib_produit);
-        printf("Prix : %d\n", *unProduit.prix);
+        printf("Prix : %f\n", unProduit.prix_produit);
+
         i++;
     }
 
